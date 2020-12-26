@@ -1,10 +1,10 @@
 {
-  "name": "clerking-server",
+  "name": "vvs-server",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "node --exec ts-node build/app.js",
+    "start": "node build/app.js",
     "dev": "nodemon --watch src --delay 1 --exec 'ts-node' src/app.ts"
   },
   "dependencies": {
@@ -18,8 +18,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.11",
-    "morgan": "~1.9.1",
-    "socket.io": "^3.0.0"
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.37",

@@ -3,6 +3,7 @@ import config from '../config';
 
 const initMongooseLoader = async (): Promise<void> => {
     const { MONGODB_BASE_URL, MONGODB_DATABASE_NAME } = config;
+    console.log(config);
     await mongoose.connect(`${MONGODB_BASE_URL}/${MONGODB_DATABASE_NAME}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
