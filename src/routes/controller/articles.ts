@@ -2,8 +2,11 @@ import ArticleService from '../../Service/ArticleService';
 
 export const getArticles = async (req, res, next) => {
     try {
-        const { page } = req.query;
-        const articles = await ArticleService.getArticles(Number(page) || 0);
+        const { page, category } = req.query;
+        const articles = await ArticleService.getArticles(
+            Number(page) || 0,
+            category
+        );
 
         res.status(200).send({ articles });
     } catch (e) {

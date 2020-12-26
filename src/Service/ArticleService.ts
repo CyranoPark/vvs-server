@@ -1,4 +1,5 @@
 import {
+    Category,
     IArticle,
     IArticleRequest,
     IArticlesResponse,
@@ -6,10 +7,13 @@ import {
 import Article from '../Models/Article';
 
 class ArticleService {
-    private perPage = 1;
+    private perPage = 10;
 
-    async getArticles(page: number): Promise<IArticlesResponse> {
-        const articles = await Article.find()
+    async getArticles(
+        page: number,
+        category: Category
+    ): Promise<IArticlesResponse> {
+        const articles = await Article.find({ category })
             .limit(this.perPage)
             .skip(this.perPage * page)
             .sort({
