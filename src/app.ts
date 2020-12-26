@@ -4,7 +4,7 @@ import createError from 'http-errors';
 
 import initLoaders from './loaders';
 import indexRouter from './routes';
-import usersRouter from './routes/users';
+import articlesRouter from './routes/articles';
 
 const env: string = process.env.NODE_ENV || 'development';
 const port: number = Number(process.env.PORT) || 8080;
@@ -15,7 +15,7 @@ const startServer = async () => {
     await initLoaders(app);
 
     app.use('/', indexRouter);
-    app.use('/users', usersRouter);
+    app.use('/articles', articlesRouter);
 
     app.use((_req, _res, next) => {
         next(createError(404));
