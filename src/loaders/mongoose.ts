@@ -2,9 +2,9 @@ import * as mongoose from 'mongoose';
 import config from '../config';
 
 const initMongooseLoader = async (): Promise<void> => {
-    const { MONGODB_BASE_URL, MONGODB_DATABASE_NAME } = config;
-    console.log(config);
-    await mongoose.connect(`${MONGODB_BASE_URL}/${MONGODB_DATABASE_NAME}`, {
+    const { MONGODB_URI } = config;
+
+    await mongoose.connect(MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

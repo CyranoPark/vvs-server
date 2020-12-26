@@ -7,8 +7,7 @@ const dev = env === 'development';
 if (dev) dotenv.config();
 
 const config: IConfig = {
-    MONGODB_BASE_URL: process.env.MONGODB_BASE_URL,
-    MONGODB_DATABASE_NAME: process.env.MONGODB_DATABASE_NAME,
+    MONGODB_URI: process.env.MONGODB_URI,
 };
 
 export default config;
