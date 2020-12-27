@@ -11,7 +11,7 @@ export const getArticles = castAsync(async (req, res, next) => {
         category
     );
 
-    res.status(200).send({ articles });
+    res.status(200).send(articles);
 });
 
 export const getArticle = castAsync(async (req, res, next) => {
