@@ -5,15 +5,18 @@ import {
     IArticlesResponse,
 } from '../types/models/Article';
 import Article from '../Models/Article';
+import ErrorService from './ErrorService';
 
 class ArticleService {
     private perPage = 10;
 
     async getArticles(
         page: number,
-        category: Category
+        category?: Category
     ): Promise<IArticlesResponse> {
-        const articles = await Article.find({ category })
+        const articles = await Article.find({
+            category: category || Category.BLOG,
+        })
             .limit(this.perPage)
             .skip(this.perPage * page)
             .sort({
@@ -31,14 +34,48 @@ class ArticleService {
         };
     }
 
-    async getArticleById(id): Promise<IArticle> {
-        return await Article.findById(id);
+    async getArticleById(id: string): Promise<IArticle> {
+        const isValidId = ErrorService.validateId(id);
+
+        if (!isValidId) {
+            ErrorService.createIdValidateError();
+        }
+
+        const article = await Article.findById(id);
+
+        if (!article) {
+            ErrorService.createNotFoundError();
+        }
+        return article;
     }
 
     async createArticle(article: IArticleRequest): Promise<IArticle> {
         const newArticle = new Article(article);
 
         return await newArticle.save();
+    }
+
+    async updateArticle(
+        id: string,
+        article: IArticleRequest
+    ): Promise<IArticle> {
+        const isValidId = ErrorService.validateId(id);
+
+        if (!isValidId) {
+            ErrorService.createIdValidateError();
+        }
+        console.log(article);
+        await Article.findByIdAndUpdate(id, article);
+        return await Article.findById(id);
+    }
+
+    async removeArticle(id: string): Promise<IArticle> {
+        const isValidId = ErrorService.validateId(id);
+
+        if (!isValidId) {
+            ErrorService.createIdValidateError();
+        }
+        return await Article.findByIdAndDelete(id);
     }
 }
 

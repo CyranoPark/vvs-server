@@ -1,37 +1,43 @@
 import ArticleService from '../../Service/ArticleService';
+import castAsync from '../../Utils/castAsync';
+import { Category } from '../../types/models/Article';
 
-export const getArticles = async (req, res, next) => {
-    try {
-        const { page, category } = req.query;
-        const articles = await ArticleService.getArticles(
-            Number(page) || 0,
-            category
-        );
+export const getArticles = castAsync(async (req, res, next) => {
+    const { page } = req.query;
+    const category = req.query.category as Category;
 
-        res.status(200).send({ articles });
-    } catch (e) {
-        next();
-    }
-};
+    const articles = await ArticleService.getArticles(
+        Number(page) || 0,
+        category
+    );
 
-export const getArticle = async (req, res, next) => {
-    try {
-        const { articleId } = req.param;
-        const article = await ArticleService.getArticleById(articleId);
+    res.status(200).send({ articles });
+});
 
-        res.status(200).send({ article });
-    } catch (e) {
-        next();
-    }
-};
+export const getArticle = castAsync(async (req, res, next) => {
+    const { articleId } = req.params;
+    const article = await ArticleService.getArticleById(articleId);
 
-export const createArticle = async (req, res, next) => {
-    try {
-        const article = await ArticleService.createArticle(req.body);
+    res.status(200).send({ article });
+});
 
-        res.status(200).send({ article });
-    } catch (e) {
-        console.log(e);
-        next();
-    }
-};
+export const createArticle = castAsync(async (req, res, next) => {
+    const article = await ArticleService.createArticle(req.body);
+
+    res.status(200).send({ article });
+});
+
+export const updateArticle = castAsync(async (req, res, next) => {
+    const { articleId } = req.params;
+    console.log(articleId);
+    const article = await ArticleService.updateArticle(articleId, req.body);
+
+    res.status(200).send({ article });
+});
+
+export const deleteArticle = castAsync(async (req, res, next) => {
+    const { articleId } = req.params;
+    const article = await ArticleService.removeArticle(articleId);
+
+    res.status(200).send({ article });
+});
