@@ -1,10 +1,10 @@
 import * as express from 'express';
 import { createServer } from 'http';
-import createError from 'http-errors';
 
 import initLoaders from './loaders';
 import indexRouter from './routes';
 import articlesRouter from './routes/articles';
+import { AppError } from './Service/ErrorService';
 
 const env: string = process.env.NODE_ENV || 'development';
 const port: number = Number(process.env.PORT) || 8080;
@@ -18,16 +18,18 @@ const startServer = async () => {
     app.use('/articles', articlesRouter);
 
     app.use((_req, _res, next) => {
-        next(createError(404));
+        next(new AppError('Not Found', 404));
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     app.use((err, req, res, next) => {
-        res.locals.message = err.message;
-        res.locals.error = req.app.get('env') === 'development' ? err : {};
-        console.log(err);
-        res.status(err.status || 500);
-        res.send({ error: err });
+        err.statusCode = err.statusCode || 500;
+        err.status = err.status || 'error';
+
+        res.status(err.statusCode).json({
+            status: err.status,
+            message: err.message,
+        });
     });
 
     const server = createServer(app);
