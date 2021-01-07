@@ -1,0 +1,22 @@
+version: "3.7"     # version 정보를 작성합니다.
+
+services: # service 목록을 정의합니다.
+  node: # service의 이름입니다.
+    image: vvs-server  # 해당 service에서 사용할 image입니다.
+    links: # 컨테이너 간의 연걸
+      - mongodb             # mongodb와 연결
+    restart: always         # container를 실행할 때 항상 이미 수행중이라면 재시작을 수행합니다.
+    container_name: "node"  # container의 name을 정의합니다.
+    ports: # service port를 정의합니다.
+      - "8080:8080"         # local:container
+    depends_on: # 실행순서를 설정한다. (mongodb시작 후 실행)
+      - mongodb
+  mongodb: # service의 이름입니다.
+    image: mongo    # 해당 service에서 사용할 image입니다.
+    restart: always # container를 실행할 때 항상 이미 수행중이라면 재시작을 수행합니다.
+    #environment:    # 환경변수를 정의합니다.
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: P@ssw0rd
+    container_name: "mongo" # container의 name을 정의합니다.
+    ports: # service port를 정의합니다.
+      - "27018:27017"     # local:container

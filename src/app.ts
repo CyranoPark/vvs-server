@@ -4,7 +4,7 @@ import { createServer } from 'http';
 import initLoaders from './loaders';
 import indexRouter from './routes';
 import articlesRouter from './routes/articles';
-import { AppError } from './Service/ErrorService';
+import { AppError } from './service/ErrorService';
 
 const env: string = process.env.NODE_ENV || 'development';
 const port: number = Number(process.env.PORT) || 8080;

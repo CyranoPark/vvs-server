@@ -4,7 +4,7 @@ import {
     IArticleRequest,
     IArticlesResponse,
 } from '../types/models/Article';
-import Article from '../Models/Article';
+import Article from '../models/Article';
 import ErrorService from './ErrorService';
 
 class ArticleService {
@@ -66,7 +66,7 @@ class ArticleService {
         }
         console.log(article);
         await Article.findByIdAndUpdate(id, article);
-        return await Article.findById(id);
+        return Article.findById(id);
     }
 
     async removeArticle(id: string): Promise<IArticle> {
@@ -75,7 +75,7 @@ class ArticleService {
         if (!isValidId) {
             ErrorService.createIdValidateError();
         }
-        return await Article.findByIdAndDelete(id);
+        return Article.findByIdAndDelete(id);
     }
 }
 

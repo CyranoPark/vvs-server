@@ -1,4 +1,4 @@
-import ArticleService from '../../Service/ArticleService';
+import ArticleService from '../../service/ArticleService';
 import castAsync from '../../Utils/castAsync';
 import { Category } from '../../types/models/Article';
 

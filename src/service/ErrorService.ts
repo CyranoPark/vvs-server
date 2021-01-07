@@ -18,7 +18,7 @@ export class AppError extends Error {
 
 class ErrorService {
     validateId(id: string) {
-        const ObjectId = mongoose.Types.ObjectId;
+        const ObjectId: any = mongoose.Types.ObjectId;
         return ObjectId.isValid(id);
     }
 
