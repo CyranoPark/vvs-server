@@ -4,7 +4,7 @@ import {
     IArticleRequest,
     IArticlesResponse,
 } from '../types/models/Article';
-import Article from '../Models/Article';
+import Article from '../models/Article';
 
 class ArticleService {
     private perPage = 10;

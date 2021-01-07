@@ -21,10 +21,11 @@ const startServer = async () => {
         next(createError(404));
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     app.use((err, req, res, next) => {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+        console.log(err);
         res.status(err.status || 500);
         res.send({ error: err });
     });
