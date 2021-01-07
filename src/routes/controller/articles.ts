@@ -1,5 +1,5 @@
 import ArticleService from '../../service/ArticleService';
-import castAsync from '../../Utils/castAsync';
+import castAsync from '../../utils/castAsync';
 import { Category } from '../../types/models/Article';
 
 export const getArticles = castAsync(async (req, res, next) => {
